@@ -65,8 +65,10 @@ BLL.www = {
             }
         })();
         
-        function filter(name,value){
-            return Math.min(value,limit[name])
+        function filter(name, value) {
+                     if (value === null || isNaN(value)) value = 0;
+            var res = Math.min(value, limit[name])
+            return Math.max(res, 0)
         }
         
         var city = Area.findOne({ code: id })

@@ -20,7 +20,7 @@ Template.airQualityPublish.helpers({
             var d = new Date();
             d.setDate(d.getDate()-1);
             return d;
-        })()}}, { sort: { date: -1 } })
+        })()}}, { sort: { date: -1 },limit: Session.get('limit')  })
     },
     statusColor: function (statusCode) {
         if(statusCode)
@@ -393,11 +393,24 @@ Template.airQualityPublish.onRendered(function () {
         Session.set('showLine', res.applyContent.detail.length)
         // console.log(res)
     })
+    
+     $('.mainR').scroll(function() {
+        var scrollValue = Session.get('scrollValue')
+        if ($('.mainR').scrollTop() > scrollValue) {
+            Session.set('limit', Session.get('limit') + 20);
+            Session.set('scrollValue', scrollValue + $('.mainR').height())
+        }
+    });
+    
 }
     )
 ;
 
-Template.airQualityPublish.onCreated(function () {
-
+Template.airQualityPublish.onCreated(function() {
+    Session.setDefault('limit', 20);
+    Session.setDefault('scrollValue', 100)
+    Tracker.autorun(function() {
+        Meteor.subscribe('airQuality', Session.get('limit'));
+    });
 }
-    );
+);

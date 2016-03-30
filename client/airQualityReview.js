@@ -36,7 +36,7 @@ Template.airQualityReview.helpers({
             var d = new Date();
             d.setDate(d.getDate()-1);
             return d;
-        })()}}, { sort: { date: -1 } })
+        })()}}, { sort: { date: -1 } ,limit: Session.get('limit') })
     }
 });
 
@@ -87,11 +87,21 @@ Template.airQualityReview.events({
     }
 });
 
-Template.airQualityReview.onRendered(function () {
-
+Template.airQualityReview.onRendered(function() {
+    $('.mainR').scroll(function() {
+        var scrollValue = Session.get('scrollValue')
+        if ($('.mainR').scrollTop() > scrollValue) {
+            Session.set('limit', Session.get('limit') + 20);
+            Session.set('scrollValue', scrollValue + $('.mainR').height())
+        }
+    });
 }
-    );
+);
 
-Template.airQualityReview.onCreated(function () {
-
+Template.airQualityReview.onCreated(function() {
+    Session.setDefault('limit', 20);
+    Session.setDefault('scrollValue', 100)
+    Tracker.autorun(function() {
+        Meteor.subscribe('airQuality', Session.get('limit'));
+    });
 })

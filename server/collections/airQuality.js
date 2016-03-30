@@ -127,10 +127,14 @@ DataAirQuality.allow({
         return true;
     }
 })
-Meteor.publish('airQuality', function (limit) {
-    return AirQuality.find({},{sort:{date:-1},limit:limit});
+Meteor.publish('airQuality', function(limit) {
+    if (!limit) limit = 20;
+    if (limit > AirQuality.find().count()) {
+        limit = 0;
+    }
+    return AirQuality.find({}, { sort: { date: -1 }, limit: limit });
 })
-Meteor.publish('dataAirQuality', function () {
+Meteor.publish('dataAirQuality', function() {
     return DataAirQuality.find();
 })
 

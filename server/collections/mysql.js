@@ -24,6 +24,10 @@ DataStationHourly.allow({
 
 
 Meteor.publish('dataStationHourlyReSyncRecord', function(limit) {
+    if (!limit) limit = 20;
+    if (limit > DataStationHourlyReSyncRecord.find().count()) {
+        limit = 0;
+    }
     return DataStationHourlyReSyncRecord.find({}, { sort: { tStart: -1 }, limit: limit })
 })
 
