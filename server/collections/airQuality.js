@@ -127,18 +127,19 @@ DataAirQuality.allow({
         return true;
     }
 })
-Meteor.publish('airQuality', function(limit) {
-    if (!limit) limit = 20;
-    if (limit > AirQuality.find().count()) {
-        limit = 0;
-    }
-    return AirQuality.find({}, { sort: { date: -1 }, limit: limit });
+Meteor.publish('airQuality', function(page,count,filter) {
+    if(!filter)filter = {}
+    return AirQuality.find(filter, { sort: { date: -1 },skip:(page-1)*count, limit: count });
 })
 Meteor.publish('dataAirQuality', function() {
     return DataAirQuality.find();
 })
 
 Meteor.methods({
+    'airQuality_pages':function(count,filter){
+        if(!filter)filter = {}
+        return Math.round(AirQuality.find(filter).count()/count)
+    },
     'removeAirQuality': function (id, real) {
         var areaCode = AirQuality.findOne({ _id: id }).areaCode;
         AirQuality.remove({ _id: id })

@@ -49,13 +49,14 @@
                                     </tbody>
                                 </table>
                             </td>
-                            <td><p class="text-left">{{applyContent.description}}</p></td>
+                            <td>
+                                <p class="text-left">{{applyContent.description}}</p>
+                            </td>
                             <td>
                                 <p class="{{statusColor statusCode}}">{{statusName}}</p>
                                 {{#if notAudit statusCode}}
                                 <a class="pass btn btn-default btn-sm">审核通过</a>
-                                <a class="back btn btn-default btn-sm">退回修改</a>
-                                {{/if}}
+                                <a class="back btn btn-default btn-sm">退回修改</a> {{/if}}
                                 <a class="remove btn btn-default btn-sm">删除</a>
                             </td>
                         </tr>
@@ -64,7 +65,7 @@
                 </table>
             </div>
         </div>
-        
+
         <div class="row-fluid list">
             <div class="col-md-12">
                 <div class="row-fluid" style="margin-top:30px">
@@ -85,7 +86,7 @@
                                 <td>{{moment date}}</td>
                                 <td>{{cityName}}</td>
                                 <td>
-                                    <table>
+                                    <table style="display:none">
                                         <thead>
                                             <tr>
                                                 <th>日期</th>
@@ -116,6 +117,7 @@
                             {{/each}}
                         </tbody>
                     </table>
+                    {{>pages}}
                 </div>
             </div>
         </div>

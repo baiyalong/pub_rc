@@ -14,20 +14,6 @@ Template.dataSync.helpers({
             }
         })
     },
-    pageList: function() {
-        var pages = Session.get('pages')
-        var page = Session.get('page')
-        var res = []
-        for (var i = 1; i <= pages; i++) {
-            res.push({
-                page: i,
-                active: (function() {
-                    return i == page ? 'btn-success' : ''
-                })()
-            })
-        }
-        return res;
-    }
 });
 
 Template.dataSync.events({
@@ -56,21 +42,7 @@ Template.dataSync.events({
                 console.log(err)
         });
     },
-    'click .page': function() {
-        if (!this.page) return;
-        if (this.page != Session.get('page'))
-            Session.set('page', this.page)
-    },
-    'click .page.pre': function() {
-        var page = Session.get('page')
-        if (page != 1)
-            Session.set('page', page - 1)
-    },
-    'click .page.next': function() {
-        var page = Session.get('page')
-        if (page != Session.get('pages'))
-            Session.set('page', page + 1)
-    }
+
 });
 
 Template.dataSync.onRendered(function() {
@@ -105,14 +77,8 @@ Template.dataSync.onRendered(function() {
 );
 
 Template.dataSync.onCreated(function() {
-    Session.setDefault('page', 1);
-    Session.setDefault('count', 12);
-    Meteor.call('dataStationHourlyReSyncRecord_pages', Session.get('count'), function(err, res) {
-        Session.setDefault('pages', res)
-    })
-
-    Tracker.autorun(function() {
-        Meteor.subscribe('dataStationHourlyReSyncRecord', Session.get('page'), Session.get('count'));
-    });
+    Session.set('pages_method', 'dataStationHourlyReSyncRecord_pages')
+    Session.set('collection', 'dataStationHourlyReSyncRecord')
+    Session.set('filter',{})
 }
 );
