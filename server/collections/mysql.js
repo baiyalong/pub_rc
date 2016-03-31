@@ -23,12 +23,8 @@ DataStationHourly.allow({
 })
 
 
-Meteor.publish('dataStationHourlyReSyncRecord', function(limit) {
-    if (!limit) limit = 20;
-    if (limit > DataStationHourlyReSyncRecord.find().count()) {
-        limit = 0;
-    }
-    return DataStationHourlyReSyncRecord.find({}, { sort: { tStart: -1 }, limit: limit })
+Meteor.publish('dataStationHourlyReSyncRecord', function(page, count) {
+    return DataStationHourlyReSyncRecord.find({}, { sort: { tStart: -1 }, skip: (page - 1) * count, limit: count })
 })
 
 DataStationHourlyReSyncRecord.allow({
@@ -36,3 +32,11 @@ DataStationHourlyReSyncRecord.allow({
         return true;
     }
 })
+
+Meteor.methods({
+    dataStationHourlyReSyncRecord_pages: function (count) {
+        return Math.round(DataStationHourlyReSyncRecord.find().count()/count)
+
+    }
+})
+
