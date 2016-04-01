@@ -3,6 +3,9 @@
  */
 
 Template.airQualityPublish.helpers({
+    airQualityModel:function(){
+        return Session.get('airQualityModel')
+    },
     // getPrimaryPollutant: function (primaryPollutant) {
     //     return Pollutant.findOne({ pollutantCode: Number(primaryPollutant) }).pollutantName
     // },
@@ -161,6 +164,10 @@ Template.airQualityPublish.helpers({
 });
 
 Template.airQualityPublish.events({
+    'click .detail':function(e,t){
+        Session.set('airQualityModel',this)
+        t.$('#airQualityDetailModal').modal()
+    },
     'change .airQualityIndex': function(e, t) {
        // var aqi = t.$(this).find('input.airQualityIndex').val().trim();
        var aqi = e.target.value;

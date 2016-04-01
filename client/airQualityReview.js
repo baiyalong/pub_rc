@@ -6,6 +6,9 @@
  */
 
 Template.airQualityReview.helpers({
+        airQualityModel:function(){
+        return Session.get('airQualityModel')
+    },
     title: function () {
         return Session.get('title')
     },
@@ -42,6 +45,10 @@ Template.airQualityReview.helpers({
 });
 
 Template.airQualityReview.events({
+        'click .detail':function(e,t){
+        Session.set('airQualityModel',this)
+        t.$('#airQualityDetailModal').modal()
+    },
     'click .audit': function (e, t) {
         var update = Session.get('auditStatus');
         update.auditOption = t.$('textarea').val().trim()
