@@ -195,5 +195,9 @@ Meteor.methods({
                 } })
 
         }
+    },
+    'publishAirQuality':function(){
+        //点击发布按钮，DataAirQuality清空，通过审核的AirQuality更新到DataAirQuality
+        //前台接口部分展示DataAirQuality所有数据
     }
 })
