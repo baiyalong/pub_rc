@@ -3,30 +3,64 @@
  */
 
 
-Weibo.attachSchema(new SimpleSchema({
-    content: {
-        type: String
+WeiboConfig.attachSchema(new SimpleSchema({
+    account: {
+        type: String,
+        autoValue: function() {
+            return '';
+        }
     },
-    timestamp: {
+    password: {
+        type: String,
+        autoValue: function() {
+            return '';
+        }
+    },
+    autoPublish: {
+        type: Boolean,
+        autoValue: function() {
+            return false;
+        }
+    },
+    timerSchedule: {
+        type: String,
+        autoValue: function() {
+            return '';
+        }
+    },
+    waitData: {
+        type: Boolean,
+        autoValue: function() {
+            return false;
+        }
+    },
+    template:{
+        type:String,
+        autoValue:function(){
+            return '';
+        }
+    }
+}));
+
+WeiboRecord.attachSchema(new SimpleSchema({
+    date: {
         type: Date,
         autoValue: function() {
             return new Date();
         }
     },
-    cityCode: {
-        type: Number
-    },
-    cityName: {
+    content: {
         type: String
+    },
+    status: {
+        type: Boolean
     }
 }));
 
 
-Weibo.allow({
+WeiboConfig.allow({
     insert: function() {
         //TODO roles auth here
-        return true;
-    }, remove: function() {
         return true;
     }, update: function() {
         //TODO roles auth here
@@ -34,9 +68,19 @@ Weibo.allow({
     }
 })
 
-Meteor.publish('weibo', function() {
-    //TODO page
-    return Warning.find();
+WeiboRecord.allow({
+    insert: function() {
+        //TODO roles auth here
+        return true;
+    }
+})
+
+Meteor.publish('weiboConfig', function() {
+    return WeiboConfig.find();
+})
+
+Meteor.publish('weiboRecord', function() {
+    return WeiboRecord.find();
 })
 
 
