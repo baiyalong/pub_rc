@@ -150,7 +150,7 @@ BLL.mobile = {
         }, ],
       healthyAdviceList: healthyAdrr(aqi),
       aqPridictionList: (function () {
-        return DataAirQuality.find({ areaCode: code, date: { $gt: new Date() } }).map(function (e) {
+        return DataAirQuality.find({ areaCode: code, description: { $exists: false }}).map(function (e) {
           return [
             moment(e.date).format('MM月DD日'),
             e.airIndexLevel,
@@ -159,16 +159,16 @@ BLL.mobile = {
         })
       })(),
       airQualityPridiction: (function () {
-        var date = new Date();
-        date.setHours(0);
-        date.setMinutes(0);
-        date.setSeconds(0);
-        var d1 = new Date(date);
-        d1.setSeconds(d1.getSeconds() - 1);
-        var d2 = new Date(date);
-        d2.setSeconds(d2.getSeconds() + 1);
-        var data = DataAirQuality.findOne({ areaCode: code, date: { $gt: d1, $lt: d2 } });
-        return data ? data.description : '';
+        // var date = new Date();
+        // date.setHours(0);
+        // date.setMinutes(0);
+        // date.setSeconds(0);
+        // var d1 = new Date(date);
+        // d1.setSeconds(d1.getSeconds() - 1);
+        // var d2 = new Date(date);
+        // d2.setSeconds(d2.getSeconds() + 1);
+          var data = DataAirQuality.findOne({ areaCode: code, description: { $exists: true } });
+          return data ? data.description : '';
       })(),
       weatherPridiction: (function () {
         var res = [{

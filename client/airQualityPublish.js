@@ -27,11 +27,11 @@ Template.airQualityPublish.helpers({
     },
     statusColor: function (statusCode) {
         if(statusCode)
-            return statusCode == 1 ? 'green' : statusCode == -1 ? 'red' : '';
+            return statusCode >= 1 ? 'green' : statusCode == -1 ? 'red' : '';
         var applied = Session.get('airQuality');
         if (applied) {
             var statusCode = applied.statusCode;
-            return statusCode == 1 ? 'green' : statusCode == -1 ? 'red' : '';
+            return statusCode >= 1 ? 'green' : statusCode == -1 ? 'red' : '';
         }
     },
     auditOption:function(){
@@ -119,7 +119,7 @@ Template.airQualityPublish.helpers({
                 d1.setSeconds(d1.getSeconds() - 1);
                 var d2 = new Date(date);
                 d2.setSeconds(d2.getSeconds() + 1);
-                data = DataAirQuality.findOne({ areaCode: areaCode, date: { $gte: d1, $lte: d2 } })
+                data = DataAirQuality.findOne({ areaCode: areaCode, date: { $gte: d1, $lte: d2 },description:{$exists:false} })
             }
             if (data) {
                 res.primaryPollutant = data.primaryPollutant;

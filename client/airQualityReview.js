@@ -19,7 +19,7 @@ Template.airQualityReview.helpers({
         return statusCode == 0;
     },
     statusColor: function (statusCode) {
-        return statusCode == 1 ? 'green' : statusCode == -1 ? 'red' : '';
+        return statusCode = 1 ? 'green' : statusCode == -1 ? 'red' : '';
     },
     moment: function (date) {
         return moment(date).format('YYYY-MM-DD')
@@ -45,7 +45,15 @@ Template.airQualityReview.helpers({
 });
 
 Template.airQualityReview.events({
-        'click .detail':function(e,t){
+    'click .pubBtn':function(e,t){
+        Meteor.call('publishAirQuality',function(err,res){
+            if(err)
+                Util.modal('空气质量预报审核', err);
+            else 
+                Util.modal('空气质量预报审核', '发布成功！');
+        })
+    },
+    'click .detail':function(e,t){
         Session.set('airQualityModel',this)
         t.$('#airQualityDetailModal').modal()
     },
