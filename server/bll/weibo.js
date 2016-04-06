@@ -6,17 +6,17 @@ Meteor.methods({
             {
                 code: '1',
                 name: '2',
-                description: '3',
+                description: '今天的全区空气质量预报信息',
                 value: '4'
             },
             {
-                code: '1',
+                code: '2',
                 name: '2',
                 description: '3',
                 value: '4'
             },
             {
-                code: '1',
+                code: '3',
                 name: '2',
                 description: '3',
                 value: '4'
@@ -27,8 +27,8 @@ Meteor.methods({
         if (!filter) filter = {}
         return Math.round(WeiboRecord.find(filter).count() / count)
     },
-    weiboPublish:function(){
+    weiboPublish: function() {
         //TODO
-        
+
     }
 });

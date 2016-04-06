@@ -4,41 +4,26 @@
 
 
 WeiboConfig.attachSchema(new SimpleSchema({
-    account: {
-        type: String,
-        autoValue: function() {
-            return '';
-        }
+    weiboAccount: {
+        type: String
     },
-    password: {
-        type: String,
-        autoValue: function() {
-            return '';
-        }
+    weiboPassword: {
+        type: String
     },
     autoPublish: {
         type: Boolean,
-        autoValue: function() {
-            return false;
-        }
+        optional: true
     },
     timerSchedule: {
         type: String,
-        autoValue: function() {
-            return '';
-        }
+        optional: true
     },
     waitData: {
         type: Boolean,
-        autoValue: function() {
-            return false;
-        }
+        optional: true
     },
-    template:{
-        type:String,
-        autoValue:function(){
-            return '';
-        }
+    template: {
+        type: String
     }
 }));
 
