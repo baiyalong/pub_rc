@@ -436,11 +436,14 @@ if(data[0]){
             }
           }).map(function (e) {
             var data = DataStationHourly.findOne({ stationCode: e.UniqueCode }, { sort: { monitorTime: -1 } })
+            var primaryPollutant = data['PRIMARYPOLLUTANT'];
+            if(!primaryPollutant||primaryPollutant==0)primaryPollutant='-';
+            else primaryPollutant = primaryPollutant.toString();
             return {
               code: e.UniqueCode,
               name: e.PositionName,
               topPollution: 'PM2.5',
-              primaryPollutant:'-',
+              primaryPollutant:primaryPollutant,
               aqi: filter('AQI',data['AQI']),
               pm25: filter('PM2.5',data['105']),
               pm10: filter('PM10',data['104']),

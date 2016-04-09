@@ -40,8 +40,8 @@ BLL.www = {
                         code:e.code,
                         name:e.name,
                         content:data.filter(function(ee){return ee.code==e.code}).map(function(e){
-                            delete e.areaCode;
-                            delete e.code;
+                           // delete e.areaCode;
+                           // delete e.code;
                             delete e.date;
                             return e;
                         })
