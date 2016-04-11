@@ -1,4 +1,8 @@
 Template.weibo.helpers({
+    autoPublish: function() {
+        var config = WeiboConfig.findOne()
+        return config.autoPublish ? { color: 'green', text: '自动发布已启用' } : { color: 'red', text: '自动发布未启用' }
+    },
     varList: function() {
         return Session.get('weiboVarList')
     },

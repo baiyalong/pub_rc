@@ -10,10 +10,14 @@
 
         <p>
             <span style="float:right">
-            自动发布已启用
+            {{#with autoPublish}}
+            <span style='color:{{color}}'>
+                {{text}}
+            </span>
+            {{/with}}
         </span>
             <span style="margin-left:30px">
-            发布设置
+            <b>发布设置</b>
         </span>
         </p>
 
@@ -61,7 +65,7 @@
                 </form>
             </div>
             <div class="col-md-12">
-                <p>信息编辑</p>
+                <p><b>信息编辑</b></p>
                 <textarea rows="10" class="form-control" id="template">{{template}}</textarea>
             </div>
             {{/with}}
@@ -80,7 +84,7 @@
 
         <div class="row-fluid list">
             <div class="col-md-12">
-                <p>历史记录</p>
+                <p><b>历史记录</b></p>
                 <table>
                     <thead>
                         <tr>

@@ -108,5 +108,20 @@ Meteor.methods({
             console.log(err,res)
         })
 
+    },
+    weiboCronStart: function() {
+        SyncedCron.add({
+            name: 'weibo',
+            schedule: function(parser) {
+                // parser is a later.parse object
+                return parser.text('every 10 s');
+            },
+            job: function() {
+                console.log('weibo -- ' + new Date())
+            }
+        });
+    },
+    weiboCronStop: function() {
+        SyncedCron.remove('weibo')
     }
 });
